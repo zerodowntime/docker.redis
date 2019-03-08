@@ -1,0 +1,7 @@
+[template]
+src = "redis.conf"
+dest = "/etc/redis.conf"
+keys = [
+    "/hostname",
+    "/redis",
+]
