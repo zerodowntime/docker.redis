@@ -51,6 +51,9 @@ COPY confd/templates  /etc/confd/templates
 COPY confd/conf.d     /etc/confd/conf.d
 COPY docker-entrypoint.sh /usr/local/bin/
 
+COPY liveness-probe.sh /opt/liveness-probe.sh
+COPY readiness-probe.sh /opt/readiness-probe.sh
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["/etc/redis.conf"]
 EXPOSE 6379
