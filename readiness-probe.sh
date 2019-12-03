@@ -1,3 +1,3 @@
 #!/bin/bash
 
-redic-cli ping
+/usr/local/bin/redis-cli ping
