@@ -38,7 +38,8 @@ RUN set -ex; \
 FROM zerodowntime/centos:7
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
-RUN groupadd -r redis && useradd -r -g redis redis
+RUN groupadd -r redis && useradd -r -g redis redis && \
+    yum makecache fast && yum install -y nc && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all
 
 # copy all redis binaries
 COPY --from=builder /usr/local/bin/redis-* /usr/local/bin/
@@ -53,6 +54,9 @@ COPY docker-entrypoint.sh /usr/local/bin/
 
 COPY liveness-probe.sh /opt/liveness-probe.sh
 COPY readiness-probe.sh /opt/readiness-probe.sh
+
+# swarm script
+COPY start_up_redis.sh /usr/local/bin/
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["/etc/redis.conf"]

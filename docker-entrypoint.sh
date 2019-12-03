@@ -6,4 +6,5 @@ fi
 
 confd -onetime || exit 2
 
+/usr/local/bin/start_up_redis.sh &
 exec su-exec redis redis-server "$@"
