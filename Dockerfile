@@ -1,8 +1,8 @@
-FROM zerodowntime/centos as builder
+FROM zerodowntime/centos:7 as builder
 
-ARG REDIS_VERSION=5.0.3
-ARG REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-5.0.3.tar.gz
-ARG REDIS_DOWNLOAD_SHA=e290b4ddf817b26254a74d5d564095b11f9cd20d8f165459efa53eb63cd93e02
+ARG REDIS_VERSION=5.0.6
+ARG REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-5.0.6.tar.gz
+ARG REDIS_DOWNLOAD_SHA=6624841267e142c5d5d5be292d705f8fb6070677687c5aad1645421a936d22b3
 
 RUN set -ex; \
     \
@@ -35,7 +35,7 @@ RUN set -ex; \
     make -C /usr/src/redis install
 
 
-FROM zerodowntime/centos
+FROM zerodowntime/centos:7
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r redis && useradd -r -g redis redis
